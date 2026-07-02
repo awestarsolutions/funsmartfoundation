@@ -1,0 +1,8 @@
+<x-app-layout><x-slot name="header"><h2 class="font-semibold text-xl text-gray-800 leading-tight capitalize">Companies</h2></x-slot><div class="py-12"><div class="max-w-7xl mx-auto sm:px-6 lg:px-8"><div class="bg-white overflow-hidden shadow-sm sm:rounded-lg"><div class="p-6 text-gray-900"><a href="{{ route('companies.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New</a><table class="table-auto w-full mt-4"><thead><tr><th>ID</th><th>Name</th><th>Industry</th><th>POC</th><th>Status</th><th>Actions</th></tr></thead><tbody>@foreach($companies as $item)<tr><td>{{ $item->id }}</td><td>{{ $item->name }}</td><td>{{ $item->industry }}</td><td>{{ $item->primary_poc_name }}<br><span class="text-xs text-gray-500">{{ $item->poc_email }}</span></td><td>{{ $item->status ? 'Active' : 'Inactive' }}</td><td><div class="flex items-center gap-2 justify-end">
+    <a href="{{ route('companies.edit', $item) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">Edit</a>
+    <form action="{{ route('companies.destroy', $item) }}" method="POST" class="inline m-0" onsubmit="return confirm('Are you sure you want to delete this?');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="text-red-600 hover:text-red-900 font-medium">Delete</button>
+    </form>
+</div></td></tr>@endforeach</tbody></table></div></div></div></div></x-app-layout>
